@@ -6,13 +6,14 @@ import SignUp from './pages/Signup'
 import DashBoard from './pages/Dashboard'
 import { Routes,Route } from "react-router-dom";
 import { useState } from "react";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 
   const[isLoggedIn,setIsLoggedIn]=useState(false);
 
   return(
-  <div>
+  <div className="w-screen h-screen flex-col flex bg-richblack-900">
 
     <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
 
@@ -20,7 +21,11 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path="/signup" element={<SignUp setIsLoggedIn={setIsLoggedIn}/>}/>
-      <Route path="/dashboard" element={<DashBoard/>}/>
+      <Route path="/dashboard" element={
+        <PrivateRoute isLoggedIn={isLoggedIn}>
+          <DashBoard/>
+        </PrivateRoute>
+      }/>
     </Routes>
 
   </div>
